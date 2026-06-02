@@ -1,0 +1,236 @@
+/* Estilos para Presentación Académica - Estilo Universitario Formal FIS EPN */
+:root {
+    --primary-color: #0c2340; /* Azul Marino Académico */
+    --secondary-color: #1d4ed8; /* Azul Eléctrico para destaques */
+    --accent-color: #b30000; /* Granate institucional */
+    --text-main: #1f2937; /* Gris oscuro para alta legibilidad */
+    --text-muted: #4b5563;
+    --bg-presentation: #f8fafc; /* Fondo claro de alta gama */
+    --bg-slide: #ffffff;
+    --border-color: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-presentation);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.presentation-container {
+    position: relative;
+    width: 85vw;
+    height: 70vh;
+    max-width: 1100px;
+    max-height: 700px;
+    background-color: var(--bg-slide);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+/* Diapositivas */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 50px 60px;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.slide.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.99); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Estilos de Portada */
+.academic-header {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.univ-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    letter-spacing: 1.5px;
+}
+
+.fac-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.cover-content {
+    justify-content: center;
+    height: 100%;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    line-height: 1.2;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    line-height: 1.5;
+}
+
+.project-meta {
+    background-color: #f1f5f9;
+    padding: 20px;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Títulos de Diapositivas estándar */
+.slide h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Contenido de Diapositivas */
+.slide-content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-main);
+}
+
+.section-lead {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 15px;
+}
+
+ul li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+ul ul {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+ul ul li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+ul ul li::before {
+    content: "○";
+    color: var(--text-muted);
+}
+
+code {
+    background-color: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    color: var(--accent-color);
+}
+
+/* Badges de Estado */
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border-radius: 4px;
+    color: #fff;
+    margin-right: 5px;
+}
+
+.badge-red { background-color: #ef4444; }
+.badge-green { background-color: #22c55e; }
+.badge-blue { background-color: #3b82f6; }
+
+/* Controles */
+.controls-container {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background-color: var(--secondary-color);
+}
+
+.nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+#slide-progress {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 150px;
+    text-align: center;
+}

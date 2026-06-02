@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustentación Examen: Mantenimiento de Software - FIS EPN</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active" id="slide-1">
+            <div class="academic-header">
+                <span class="univ-title">ESCUELA POLITÉCNICA NACIONAL</span>
+                <span class="fac-title">FACULTAD DE INGENIERÍA DE SISTEMAS</span>
+            </div>
+            <div class="slide-content cover-content">
+                <h1 class="main-title">Examen Práctico:<br>Mantenimiento de Software</h1>
+                <p class="subtitle">Evolución, Instrumentación de Pruebas, Logs y Aseguramiento de la Mantenibilidad en Arquitectura CRUD</p>
+                <div class="project-meta">
+                    <p><strong>Proyecto:</strong> Examen/epn-event-manager (NestJS + TypeORM + SQLite)</p>
+                    <p><strong>Tema Funcional:</strong> CRUD de Platos Típicos Ecuatorianos</p>
+                    <p><strong>Entorno:</strong> Construcción de Software 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Contexto del Proyecto -->
+        <div class="slide" id="slide-2">
+            <h2>Contexto del Proyecto Base</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Arquitectura Inicial:</strong> Aplicación backend modular construida sobre NestJS, utilizando TypeORM para la capa de persistencia con una base de datos local SQLite (<code>db/platos-tipicos.sqlite</code>).</li>
+                    <li><strong>Recurso Principal:</strong> Entidad <code>PlatoTipico</code> que contiene campos oficiales: <code>id</code>, <code>nombre</code>, <code>descripcion</code>, <code>region</code>, <code>ingredientes</code>, <code>precio</code>, <code>imagenUrl</code> y <code>categoria</code>.</li>
+                    <li><strong>Objetivo del Examen:</strong> Partir de un CRUD funcional inicial y aplicar de forma rigurosa las intervenciones técnicas normadas para mitigar la deuda técnica intencional expuesta.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Diagnóstico de Deuda Técnica -->
+        <div class="slide" id="slide-3">
+            <h2>Diagnóstico de Deuda Técnica Inicial</h2>
+            <div class="slide-content">
+                <p class="section-lead">Identificación crítica de carencias estructurales antes del proceso de estabilización:</p>
+                <ul>
+                    <li><strong>Pruebas y Cobertura:</strong> Cobertura automatizada nula o extremadamente limitada para los flujos críticos de persistencia y operaciones CRUD.</li>
+                    <li><strong>Seguridad y Validación:</strong> Ausencia de API Keys para asegurar endpoints, validaciones de entrada incompletas y vulnerabilidad a entradas maliciosas.</li>
+                    <li><strong>Observabilidad y Documentación:</strong> Falta de trazabilidad interna mediante logs estructurados, ausencia de metadatos adaptativos en las respuestas y carencia de especificación OpenAPI/Swagger.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Metodología TDD Aplicada -->
+        <div class="slide" id="slide-4">
+            <h2>Metodología TDD (Test-Driven Development)</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Flujo Riguroso de Trabajo:</strong> Cada una de las fases de mantenimiento del examen se rigió bajo el ciclo clásico de desarrollo guiado por pruebas:
+                        <ul>
+                            <li><span class="badge badge-red">Fase RED:</span> Creación e instrumentación de pruebas automatizadas e2e diseñadas específicamente para fallar.</li>
+                            <li><span class="badge badge-green">Fase GREEN:</span> Implementación del código productivo mínimo necesario para satisfacer las condiciones de la prueba.</li>
+                            <li><span class="badge badge-blue">Fase REFACTOR:</span> Optimización de la arquitectura y legibilidad del código sin alterar su comportamiento externo verificado.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Métricas de Cierre:</strong> 24 pruebas de extremo a extremo (e2e) ejecutadas con éxito (GREEN) que garantizan cero regresiones en la capa persistente.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Intervención Técnica: Mantenimiento Correctivo -->
+        <div class="slide" id="slide-5">
+            <h2>Mantenimiento Correctivo</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Problema Inicial Detectado:</strong> Existía riesgo latente de éxito falso en la eliminación de registros (<code>DELETE /platos-tipicos/:id</code>) o un manejo no controlado ante identificadores inexistentes.</li>
+                    <li><strong>Cambio Realizado:</strong> Se blindaron e implementaron pruebas e2e robustas en <code>test/platos-tipicos.e2e-spec.ts</code> para certificar la eliminación real en SQLite y el retorno correcto de un código de error HTTP 404 ante IDs inexistentes.</li>
+                    <li><strong>Impacto Estratégico:</strong> Eliminación de respuestas ambiguas, asegurando un control granular de excepciones y total confiabilidad en la persistencia local de datos.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: Intervención Técnica: Mantenimiento Adaptativo -->
+        <div class="slide" id="slide-6">
+            <h2>Mantenimiento Adaptativo</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Problema Inicial Detectado:</strong> Las respuestas del API carecían de contexto global y metadatos unificados necesarios para la integración armónica con el ecosistema de <code>EPN Event Manager</code>.</li>
+                    <li><strong>Cambio Realizado:</strong> Inclusión de una capa envolvente que inyecta metadatos adaptativos a las respuestas (<code>timestampISO</code>, <code>timezone</code>, <code>apiVersion</code>, <code>environment</code> e <code>integrationTarget</code>).</li>
+                    <li><strong>Impacto Estratégico:</strong> El contrato de la API queda completamente preparado para integraciones futuras sin alterar ni acoplar el modelo físico o de negocio de <code>PlatoTipico</code>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 7: Intervención Técnica: Mantenimiento Perfectivo -->
+        <div class="slide" id="slide-7">
+            <h2>Mantenimiento Perfectivo</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Problema Inicial Detectado:</strong> El sistema inicial poseía un valor funcional básico, desprovisto de herramientas visuales orientadas al usuario final y de métricas de agregación interna.</li>
+                    <li><strong>Cambio Realizado:</strong> 
+                        <ul>
+                            <li>Desarrollo e integración de un nuevo endpoint optimizado de estadísticas analíticas (<code>GET /platos-tipicos/stats</code>).</li>
+                            <li>Construcción de una interfaz frontend ágil, moderna y funcional utilizando <strong>Node.js + Vite</strong> para la visualización e interacción con el CRUD.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Impacto Estratégico:</strong> Incremento sustancial del valor comercial y operativo del sistema, optimizando la experiencia del usuario y la toma de decisiones.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Intervención Técnica: Mantenimiento Preventivo -->
+        <div class="slide" id="slide-8">
+            <h2>Mantenimiento Preventivo y Seguridad</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Problema Inicial Detectado:</strong> Alta vulnerabilidad ante inyecciones, manipulación errónea de datos por desbordamiento de cadenas, campos vacíos o valores numéricos negativos.</li>
+                    <li><strong>Acciones Implementadas:</strong>
+                        <ul>
+                            <li><strong>Sanitización Rigurosa:</strong> Reglas estrictas de validación de tipos, limpieza con <code>trim</code>, bloqueo activo de etiquetas <code>&lt;script&gt;</code> y patrones de inyección SQL.</li>
+                            <li><strong>Seguridad por API Key:</strong> Resguardo perimetral de endpoints protegidos mediante la inclusión obligatoria de la cabecera <code>X-FIS-EPN-KEY</code> validada por un <code>ApiKeyGuard</code>.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Impacto Estratégico:</strong> Blindaje completo del entorno de ejecución, previniendo fallos operacionales en producción antes de que ocurran.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: Observabilidad y Automatización (CI/CD) -->
+        <div class="slide" id="slide-9">
+            <h2>Observabilidad y Trazabilidad de Auditoría</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Logs Estructurados:</strong> Instrumentación del <code>Logger</code> nativo de NestJS para registrar eventos operacionales clave (trazas <code>INFO</code>) y violaciones de seguridad o validaciones fallidas (trazas <code>WARN</code>).</li>
+                    <li><strong>Documentación API:</strong> Exposición interactiva del contrato de servicios mediante Swagger/OpenAPI disponible en la ruta local <code>/api/docs</code>.</li>
+                    <li><strong>Integración Continua (CI):</strong> Automatización de tuberías de validación mediante <strong>GitHub Actions</strong> (<code>.github/workflows/node-ci.yml</code>), garantizando la ejecución transparente de pruebas unitarias, e2e, linting y builds limpios tanto en backend como en frontend.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: Conclusiones -->
+        <div class="slide" id="slide-10">
+            <h2>Conclusiones del Proceso</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Estabilización Arquitectónica:</strong> Se demostró de manera medible y reproducible que un sistema con deuda técnica puede ser transformado en una solución robusta, observable y segura mediante la aplicación rigurosa de estándares de ingeniería de software.</li>
+                    <li><strong>Garantía de Calidad:</strong> La suite de pruebas TDD e2e actúa como una red de seguridad infalible contra regresiones funcionales en operaciones de persistencia.</li>
+                    <li><strong>Preparado para Producción:</strong> La combinación de logs estruturados, protección perimetral por API Key, documentación interactiva y flujos automatizados de CI elevan la solución a niveles aptos para el despliegue corporativo institucional.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controles de navegación -->
+    <div class="controls-container">
+        <button id="prev-btn" class="nav-btn" disabled>← Anterior</button>
+        <span id="slide-progress">Diapositiva 1 de 10</span>
+        <button id="next-btn" class="nav-btn">Siguiente →</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

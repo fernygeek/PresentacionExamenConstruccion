@@ -1,163 +1,451 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sustentación Examen: Mantenimiento de Software - FIS EPN</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examen Mantenimiento de Software | EPN Event Manager</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
 
-    <div class="presentation-container">
-        <!-- Slide 1: Portada -->
-        <div class="slide active" id="slide-1">
-            <div class="academic-header">
-                <span class="univ-title">ESCUELA POLITÉCNICA NACIONAL</span>
-                <span class="fac-title">FACULTAD DE INGENIERÍA DE SISTEMAS</span>
-            </div>
-            <div class="slide-content cover-content">
-                <h1 class="main-title">Examen Práctico:<br>Mantenimiento de Software</h1>
-                <p class="subtitle">Evolución, Instrumentación de Pruebas, Logs y Aseguramiento de la Mantenibilidad en Arquitectura CRUD</p>
-                <div class="project-meta">
-                    <p><strong>Proyecto:</strong> Examen/epn-event-manager (NestJS + TypeORM + SQLite)</p>
-                    <p><strong>Tema Funcional:</strong> CRUD de Platos Típicos Ecuatorianos</p>
-                    <p><strong>Entorno:</strong> Construcción de Software 2026</p>
-                </div>
-            </div>
+  <main class="deck" id="deck" aria-live="polite">
+    <!-- 01 -->
+    <section class="slide active cover" data-title="Portada">
+      <div class="eyebrow">EPN · Facultad de Ingeniería de Sistemas</div>
+      <h1 class="neon-title">Examen Práctico:<br/>Mantenimiento de Software</h1>
+      <p class="subtitle">EPN Event Manager · CRUD persistente de platos típicos ecuatorianos</p>
+      <div class="cover-grid">
+        <div class="glass-card">
+          <span class="tag cyan">Backend</span>
+          <strong>NestJS + TypeORM + SQLite</strong>
         </div>
-
-        <!-- Slide 2: Contexto del Proyecto -->
-        <div class="slide" id="slide-2">
-            <h2>Contexto del Proyecto Base</h2>
-            <div class="slide-content">
-                <ul>
-                    <li><strong>Arquitectura Inicial:</strong> Aplicación backend modular construida sobre NestJS, utilizando TypeORM para la capa de persistencia con una base de datos local SQLite (<code>db/platos-tipicos.sqlite</code>).</li>
-                    <li><strong>Recurso Principal:</strong> Entidad <code>PlatoTipico</code> que contiene campos oficiales: <code>id</code>, <code>nombre</code>, <code>descripcion</code>, <code>region</code>, <code>ingredientes</code>, <code>precio</code>, <code>imagenUrl</code> y <code>categoria</code>.</li>
-                    <li><strong>Objetivo del Examen:</strong> Partir de un CRUD funcional inicial y aplicar de forma rigurosa las intervenciones técnicas normadas para mitigar la deuda técnica intencional expuesta.</li>
-                </ul>
-            </div>
+        <div class="glass-card">
+          <span class="tag magenta">Frontend</span>
+          <strong>Vite + JavaScript</strong>
         </div>
-
-        <!-- Slide 3: Diagnóstico de Deuda Técnica -->
-        <div class="slide" id="slide-3">
-            <h2>Diagnóstico de Deuda Técnica Inicial</h2>
-            <div class="slide-content">
-                <p class="section-lead">Identificación crítica de carencias estructurales antes del proceso de estabilización:</p>
-                <ul>
-                    <li><strong>Pruebas y Cobertura:</strong> Cobertura automatizada nula o extremadamente limitada para los flujos críticos de persistencia y operaciones CRUD.</li>
-                    <li><strong>Seguridad y Validación:</strong> Ausencia de API Keys para asegurar endpoints, validaciones de entrada incompletas y vulnerabilidad a entradas maliciosas.</li>
-                    <li><strong>Observabilidad y Documentación:</strong> Falta de trazabilidad interna mediante logs estructurados, ausencia de metadatos adaptativos en las respuestas y carencia de especificación OpenAPI/Swagger.</li>
-                </ul>
-            </div>
+        <div class="glass-card">
+          <span class="tag amber">Calidad</span>
+          <strong>TDD · Logs · Swagger · CI</strong>
         </div>
+      </div>
+      <div class="image-slot wide">Espacio para captura: pantalla principal del frontend</div>
+    </section>
 
-        <!-- Slide 4: Metodología TDD Aplicada -->
-        <div class="slide" id="slide-4">
-            <h2>Metodología TDD (Test-Driven Development)</h2>
-            <div class="slide-content">
-                <ul>
-                    <li><strong>Flujo Riguroso de Trabajo:</strong> Cada una de las fases de mantenimiento del examen se rigió bajo el ciclo clásico de desarrollo guiado por pruebas:
-                        <ul>
-                            <li><span class="badge badge-red">Fase RED:</span> Creación e instrumentación de pruebas automatizadas e2e diseñadas específicamente para fallar.</li>
-                            <li><span class="badge badge-green">Fase GREEN:</span> Implementación del código productivo mínimo necesario para satisfacer las condiciones de la prueba.</li>
-                            <li><span class="badge badge-blue">Fase REFACTOR:</span> Optimización de la arquitectura y legibilidad del código sin alterar su comportamiento externo verificado.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Métricas de Cierre:</strong> 24 pruebas de extremo a extremo (e2e) ejecutadas con éxito (GREEN) que garantizan cero regresiones en la capa persistente.</li>
-                </ul>
-            </div>
+    <!-- 02 -->
+    <section class="slide" data-title="Objetivo del examen">
+      <div class="slide-header">
+        <span class="chapter">01</span>
+        <h2>Objetivo del examen</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <p class="lead">Tomar un CRUD inicial, diagnosticar deuda técnica y aplicar mantenimiento formal con evidencia reproducible.</p>
+          <ul class="check-list">
+            <li>Diagnóstico de deuda técnica.</li>
+            <li>TDD: ciclo RED → GREEN → REFACTOR.</li>
+            <li>Mantenimiento correctivo, adaptativo, perfectivo y preventivo.</li>
+            <li>Pruebas unitarias, e2e y manuales.</li>
+            <li>Logs, trazabilidad, Swagger, API Key y CI/CD.</li>
+          </ul>
         </div>
-
-        <!-- Slide 5: Intervención Técnica: Mantenimiento Correctivo -->
-        <div class="slide" id="slide-5">
-            <h2>Mantenimiento Correctivo</h2>
-            <div class="slide-content">
-                <ul>
-                    <li><strong>Problema Inicial Detectado:</strong> Existía riesgo latente de éxito falso en la eliminación de registros (<code>DELETE /platos-tipicos/:id</code>) o un manejo no controlado ante identificadores inexistentes.</li>
-                    <li><strong>Cambio Realizado:</strong> Se blindaron e implementaron pruebas e2e robustas en <code>test/platos-tipicos.e2e-spec.ts</code> para certificar la eliminación real en SQLite y el retorno correcto de un código de error HTTP 404 ante IDs inexistentes.</li>
-                    <li><strong>Impacto Estratégico:</strong> Eliminación de respuestas ambiguas, asegurando un control granular de excepciones y total confiabilidad en la persistencia local de datos.</li>
-                </ul>
-            </div>
+        <div class="rubric-card">
+          <h3>Entregables que cubre la presentación</h3>
+          <table>
+            <thead><tr><th>Criterio</th><th>Evidencia</th></tr></thead>
+            <tbody>
+              <tr><td>Diagnóstico</td><td>Deuda técnica y riesgos</td></tr>
+              <tr><td>Intervención técnica</td><td>Código + pruebas + logs</td></tr>
+              <tr><td>Clasificación</td><td>Tipos de mantenimiento</td></tr>
+              <tr><td>Prueba de vida</td><td>Demo funcional + checks</td></tr>
+            </tbody>
+          </table>
         </div>
+      </div>
+    </section>
 
-        <!-- Slide 6: Intervención Técnica: Mantenimiento Adaptativo -->
-        <div class="slide" id="slide-6">
-            <h2>Mantenimiento Adaptativo</h2>
-            <div class="slide-content">
-                <ul>
-                    <li><strong>Problema Inicial Detectado:</strong> Las respuestas del API carecían de contexto global y metadatos unificados necesarios para la integración armónica con el ecosistema de <code>EPN Event Manager</code>.</li>
-                    <li><strong>Cambio Realizado:</strong> Inclusión de una capa envolvente que inyecta metadatos adaptativos a las respuestas (<code>timestampISO</code>, <code>timezone</code>, <code>apiVersion</code>, <code>environment</code> e <code>integrationTarget</code>).</li>
-                    <li><strong>Impacto Estratégico:</strong> El contrato de la API queda completamente preparado para integraciones futuras sin alterar ni acoplar el modelo físico o de negocio de <code>PlatoTipico</code>.</li>
-                </ul>
-            </div>
+    <!-- 03 -->
+    <section class="slide" data-title="Contexto del proyecto">
+      <div class="slide-header"><span class="chapter">02</span><h2>Contexto del proyecto</h2></div>
+      <div class="two-col balanced">
+        <div class="panel">
+          <h3>Recurso principal: <span class="accent">PlatoTipico</span></h3>
+          <table class="compact-table">
+            <tbody>
+              <tr><td>id</td><td>Identificador único</td></tr>
+              <tr><td>nombre</td><td>Nombre del plato</td></tr>
+              <tr><td>descripcion</td><td>Descripción gastronómica</td></tr>
+              <tr><td>region</td><td>Costa, Sierra, Amazonía, etc.</td></tr>
+              <tr><td>ingredientes</td><td>Ingredientes principales</td></tr>
+              <tr><td>precio</td><td>Precio referencial</td></tr>
+              <tr><td>imagenUrl</td><td>Imagen del plato</td></tr>
+              <tr><td>categoria</td><td>Categoría culinaria</td></tr>
+            </tbody>
+          </table>
         </div>
-
-        <!-- Slide 7: Intervención Técnica: Mantenimiento Perfectivo -->
-        <div class="slide" id="slide-7">
-            <h2>Mantenimiento Perfectivo</h2>
-            <div class="slide-content">
-                <ul>
-                    <li><strong>Problema Inicial Detectado:</strong> El sistema inicial poseía un valor funcional básico, desprovisto de herramientas visuales orientadas al usuario final y de métricas de agregación interna.</li>
-                    <li><strong>Cambio Realizado:</strong> 
-                        <ul>
-                            <li>Desarrollo e integración de un nuevo endpoint optimizado de estadísticas analíticas (<code>GET /platos-tipicos/stats</code>).</li>
-                            <li>Construcción de una interfaz frontend ágil, moderna y funcional utilizando <strong>Node.js + Vite</strong> para la visualización e interacción con el CRUD.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Impacto Estratégico:</strong> Incremento sustancial del valor comercial y operativo del sistema, optimizando la experiencia del usuario y la toma de decisiones.</li>
-                </ul>
-            </div>
+        <div class="panel">
+          <h3>Arquitectura base</h3>
+          <div class="architecture">
+            <div>Frontend Vite</div>
+            <span>⇄</span>
+            <div>API NestJS</div>
+            <span>⇄</span>
+            <div>SQLite</div>
+          </div>
+          <ul class="mini-list">
+            <li>Proyecto ubicado en <code>Examen/epn-event-manager</code>.</li>
+            <li>CRUD en <code>src/modules/platos-tipicos</code>.</li>
+            <li>Base persistente: <code>db/platos-tipicos.sqlite</code>.</li>
+            <li>Frontend en carpeta <code>frontend/</code>.</li>
+          </ul>
+          <div class="image-slot">Espacio para diagrama de arquitectura del proyecto</div>
         </div>
+      </div>
+    </section>
 
-        <!-- Slide 8: Intervención Técnica: Mantenimiento Preventivo -->
-        <div class="slide" id="slide-8">
-            <h2>Mantenimiento Preventivo y Seguridad</h2>
-            <div class="slide-content">
-                <ul>
-                    <li><strong>Problema Inicial Detectado:</strong> Alta vulnerabilidad ante inyecciones, manipulación errónea de datos por desbordamiento de cadenas, campos vacíos o valores numéricos negativos.</li>
-                    <li><strong>Acciones Implementadas:</strong>
-                        <ul>
-                            <li><strong>Sanitización Rigurosa:</strong> Reglas estrictas de validación de tipos, limpieza con <code>trim</code>, bloqueo activo de etiquetas <code>&lt;script&gt;</code> y patrones de inyección SQL.</li>
-                            <li><strong>Seguridad por API Key:</strong> Resguardo perimetral de endpoints protegidos mediante la inclusión obligatoria de la cabecera <code>X-FIS-EPN-KEY</code> validada por un <code>ApiKeyGuard</code>.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Impacto Estratégico:</strong> Blindaje completo del entorno de ejecución, previniendo fallos operacionales en producción antes de que ocurran.</li>
-                </ul>
-            </div>
+    <!-- 04 -->
+    <section class="slide" data-title="Línea base del CRUD">
+      <div class="slide-header"><span class="chapter">03</span><h2>Línea base: CRUD persistente</h2></div>
+      <p class="lead">Antes del mantenimiento se construyó un CRUD funcional para crear, consultar, actualizar y eliminar platos típicos, usando SQLite como almacenamiento principal.</p>
+      <table class="neon-table">
+        <thead><tr><th>Método</th><th>Endpoint</th><th>Propósito</th><th>Evidencia esperada</th></tr></thead>
+        <tbody>
+          <tr><td>POST</td><td>/platos-tipicos</td><td>Crear plato</td><td>HTTP 201 + id generado</td></tr>
+          <tr><td>GET</td><td>/platos-tipicos</td><td>Listar platos</td><td>HTTP 200 + arreglo</td></tr>
+          <tr><td>GET</td><td>/platos-tipicos/:id</td><td>Consultar por id</td><td>HTTP 200 o 404</td></tr>
+          <tr><td>PATCH</td><td>/platos-tipicos/:id</td><td>Actualizar campos</td><td>HTTP 200 + cambios</td></tr>
+          <tr><td>DELETE</td><td>/platos-tipicos/:id</td><td>Eliminar registro</td><td>HTTP 200 + deleted true</td></tr>
+        </tbody>
+      </table>
+      <div class="image-row">
+        <div class="image-slot">Captura sugerida: Swagger endpoints</div>
+        <div class="image-slot">Captura sugerida: SQLite / persistencia</div>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="slide" data-title="Diagnóstico">
+      <div class="slide-header"><span class="chapter">04</span><h2>Diagnóstico de deuda técnica</h2></div>
+      <div class="grid-3">
+        <div class="debt-card"><h3>Pruebas limitadas</h3><p>Riesgo de regresiones en crear, listar, consultar, actualizar, eliminar y persistencia.</p></div>
+        <div class="debt-card"><h3>Validaciones incompletas</h3><p>Campos vacíos, URLs inválidas, precio negativo y textos peligrosos podían persistirse.</p></div>
+        <div class="debt-card"><h3>Seguridad ausente</h3><p>Los endpoints estaban abiertos sin cabecera de autorización.</p></div>
+        <div class="debt-card"><h3>Sin trazabilidad</h3><p>No existían logs estructurados para diagnosticar acciones o errores.</p></div>
+        <div class="debt-card"><h3>Sin integración</h3><p>Las respuestas no incluían metadata útil para EPN Event Manager.</p></div>
+        <div class="debt-card"><h3>Sin CI / Swagger</h3><p>La validación y documentación dependían de ejecución manual dispersa.</p></div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="slide" data-title="Mapa de mantenimiento">
+      <div class="slide-header"><span class="chapter">05</span><h2>Mapa de mantenimiento aplicado</h2></div>
+      <table class="neon-table big-table">
+        <thead><tr><th>Tipo</th><th>Problema inicial</th><th>Cambio realizado</th><th>Impacto</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill cyan">Correctivo</span></td><td>Riesgo de éxito falso al eliminar.</td><td>Pruebas e2e de DELETE real, 404 e inexistencia tras reinicio.</td><td>Errores controlados y eliminación confiable.</td></tr>
+          <tr><td><span class="pill blue">Adaptativo</span></td><td>API sin contexto para integrarse.</td><td>Wrapper <code>{ data, metadata }</code> e integración con eventos.</td><td>Contrato uniforme para EPN Event Manager.</td></tr>
+          <tr><td><span class="pill magenta">Perfectivo</span></td><td>Sin análisis ni interfaz visual.</td><td>Endpoint <code>/stats</code> y frontend Vite.</td><td>Más valor funcional y mejor demo.</td></tr>
+          <tr><td><span class="pill amber">Preventivo</span></td><td>Riesgo de fallos futuros.</td><td>Validaciones, API Key, logs, Swagger, GitHub Actions.</td><td>Mayor seguridad, observabilidad y automatización.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 07 -->
+    <section class="slide" data-title="Dashboard">
+      <div class="slide-header"><span class="chapter">06</span><h2>Dashboard de estado del proyecto</h2></div>
+      <div class="dashboard">
+        <div class="metric"><span>24</span><small>Pruebas e2e</small></div>
+        <div class="metric"><span>1</span><small>Suite unitaria</small></div>
+        <div class="metric"><span>4</span><small>Tipos de mantenimiento</small></div>
+        <div class="metric"><span>6</span><small>Endpoints CRUD + stats</small></div>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Cobertura por mantenimiento</h3>
+          <div class="bars">
+            <label>Correctivo <span style="width: 95%"></span></label>
+            <label>Adaptativo <span style="width: 90%"></span></label>
+            <label>Perfectivo <span style="width: 88%"></span></label>
+            <label>Preventivo <span style="width: 96%"></span></label>
+          </div>
         </div>
-
-        <!-- Slide 9: Observabilidad y Automatización (CI/CD) -->
-        <div class="slide" id="slide-9">
-            <h2>Observabilidad y Trazabilidad de Auditoría</h2>
-            <div class="slide-content">
-                <ul>
-                    <li><strong>Logs Estructurados:</strong> Instrumentación del <code>Logger</code> nativo de NestJS para registrar eventos operacionales clave (trazas <code>INFO</code>) y violaciones de seguridad o validaciones fallidas (trazas <code>WARN</code>).</li>
-                    <li><strong>Documentación API:</strong> Exposición interactiva del contrato de servicios mediante Swagger/OpenAPI disponible en la ruta local <code>/api/docs</code>.</li>
-                    <li><strong>Integración Continua (CI):</strong> Automatización de tuberías de validación mediante <strong>GitHub Actions</strong> (<code>.github/workflows/node-ci.yml</code>), garantizando la ejecución transparente de pruebas unitarias, e2e, linting y builds limpios tanto en backend como en frontend.</li>
-                </ul>
-            </div>
+        <div class="chart-card">
+          <h3>Estado de checks</h3>
+          <div class="donut" aria-label="Checks completados"><span>GREEN</span></div>
+          <p>Build backend, lint, pruebas unitarias, pruebas e2e y build frontend completados.</p>
         </div>
-
-        <!-- Slide 10: Conclusiones -->
-        <div class="slide" id="slide-10">
-            <h2>Conclusiones del Proceso</h2>
-            <div class="slide-content">
-                <ul>
-                    <li><strong>Estabilización Arquitectónica:</strong> Se demostró de manera medible y reproducible que un sistema con deuda técnica puede ser transformado en una solución robusta, observable y segura mediante la aplicación rigurosa de estándares de ingeniería de software.</li>
-                    <li><strong>Garantía de Calidad:</strong> La suite de pruebas TDD e2e actúa como una red de seguridad infalible contra regresiones funcionales en operaciones de persistencia.</li>
-                    <li><strong>Preparado para Producción:</strong> La combinación de logs estruturados, protección perimetral por API Key, documentación interactiva y flujos automatizados de CI elevan la solución a niveles aptos para el despliegue corporativo institucional.</li>
-                </ul>
-            </div>
+        <div class="chart-card">
+          <h3>Espacio para dashboard real</h3>
+          <div class="image-slot">Captura sugerida: endpoint /platos-tipicos/stats o frontend de estadísticas</div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- Controles de navegación -->
-    <div class="controls-container">
-        <button id="prev-btn" class="nav-btn" disabled>← Anterior</button>
-        <span id="slide-progress">Diapositiva 1 de 10</span>
-        <button id="next-btn" class="nav-btn">Siguiente →</button>
-    </div>
+    <!-- 08 -->
+    <section class="slide" data-title="TDD">
+      <div class="slide-header"><span class="chapter">07</span><h2>Metodología TDD aplicada</h2></div>
+      <div class="timeline">
+        <div><strong>RED</strong><p>Se crea una prueba que evidencia la deuda o la funcionalidad faltante.</p></div>
+        <div><strong>GREEN</strong><p>Se implementa el cambio mínimo para que la prueba pase.</p></div>
+        <div><strong>REFACTOR</strong><p>Se mejora estructura o legibilidad sin cambiar comportamiento.</p></div>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Comandos usados</h3>
+          <pre><code>npm test
+npm run test:e2e
+npm run build
+npm run lint
+cd frontend
+npm run build</code></pre>
+        </div>
+        <div class="panel">
+          <h3>Qué validan las pruebas</h3>
+          <ul class="check-list">
+            <li>CRUD base y persistencia SQLite.</li>
+            <li>Errores 404, 400 y 401.</li>
+            <li>Metadata adaptativa en respuestas.</li>
+            <li>Estadísticas calculadas desde datos reales.</li>
+            <li>Validaciones, sanitización, API Key y logs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- 09 -->
+    <section class="slide" data-title="Pruebas automáticas">
+      <div class="slide-header"><span class="chapter">08</span><h2>Pruebas automáticas explicadas</h2></div>
+      <table class="neon-table">
+        <thead><tr><th>Grupo</th><th>Escenario</th><th>Resultado esperado</th></tr></thead>
+        <tbody>
+          <tr><td>CRUD</td><td>Crear, listar, consultar, actualizar y eliminar.</td><td>HTTP correcto y datos persistidos.</td></tr>
+          <tr><td>Persistencia</td><td>Crear plato, reiniciar NestJS y consultar.</td><td>El plato sigue en SQLite.</td></tr>
+          <tr><td>Correctivo</td><td>DELETE con id inexistente.</td><td>404, sin falso <code>deleted: true</code>.</td></tr>
+          <tr><td>Adaptativo</td><td>CREATE/READ/UPDATE/DELETE.</td><td>Respuesta con <code>data</code> y <code>metadata</code>.</td></tr>
+          <tr><td>Preventivo</td><td>Campos vacíos, precio negativo, URL inválida, script y SQL.</td><td>HTTP 400 y datos no guardados.</td></tr>
+          <tr><td>Seguridad</td><td>API Key ausente, incorrecta y correcta.</td><td>401 o 200 según corresponda.</td></tr>
+        </tbody>
+      </table>
+      <div class="image-slot wide">Espacio para captura: terminal con npm run test:e2e en GREEN</div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" data-title="Pruebas manuales">
+      <div class="slide-header"><span class="chapter">09</span><h2>Pruebas manuales de API</h2></div>
+      <div class="two-col balanced">
+        <div class="panel">
+          <h3>Flujo manual principal</h3>
+          <ol class="numbered">
+            <li>Iniciar backend con <code>FIS_EPN_API_KEY</code>.</li>
+            <li>Crear plato típico con <code>POST</code>.</li>
+            <li>Guardar el <code>id</code> devuelto.</li>
+            <li>Listar, consultar y actualizar.</li>
+            <li>Consultar estadísticas.</li>
+            <li>Eliminar y confirmar 404.</li>
+            <li>Reiniciar backend y validar persistencia.</li>
+          </ol>
+        </div>
+        <div class="panel">
+          <h3>Comando ejemplo</h3>
+          <pre><code>curl http://localhost:3000/platos-tipicos \
+  -H "X-FIS-EPN-KEY: clave-de-prueba"</code></pre>
+          <p>La guía manual también cubre API Key incorrecta, datos inválidos, script malicioso y precio negativo.</p>
+          <div class="image-slot">Captura sugerida: ejecución curl + respuesta JSON</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" data-title="Integración">
+      <div class="slide-header"><span class="chapter">10</span><h2>Integración adaptativa con EPN Event Manager</h2></div>
+      <p class="lead">El CRUD se adaptó para no devolver entidades aisladas, sino respuestas con datos y contexto operativo.</p>
+      <div class="code-layout">
+        <div class="panel">
+          <h3>Contrato de respuesta</h3>
+          <pre><code>{
+  "data": { "id": 1, "nombre": "Encebollado" },
+  "metadata": {
+    "source": "platos-tipicos-service",
+    "system": "EPN Event Manager",
+    "apiVersion": "1.0.0",
+    "timestampISO": "2026-...",
+    "timezone": "America/Guayaquil",
+    "environment": "development",
+    "integrationTarget": "epn-event-manager"
+  }
+}</code></pre>
+        </div>
+        <div class="panel">
+          <h3>Por qué es adaptativo</h3>
+          <ul class="check-list">
+            <li>Adapta el sistema a un nuevo contexto de integración.</li>
+            <li>No cambia el modelo oficial de <code>PlatoTipico</code>.</li>
+            <li>Agrega trazabilidad contextual por operación.</li>
+            <li>Integra internamente con el módulo <code>events</code>.</li>
+          </ul>
+          <div class="image-slot">Espacio para diagrama: CRUD → EventsService → metadata</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" data-title="Seguridad y preventivo">
+      <div class="slide-header"><span class="chapter">11</span><h2>Mantenimiento preventivo: seguridad y validaciones</h2></div>
+      <div class="grid-2">
+        <div class="panel highlight">
+          <h3>API Key</h3>
+          <p>Todos los endpoints de platos típicos requieren la cabecera:</p>
+          <pre><code>X-FIS-EPN-KEY: clave-de-prueba</code></pre>
+          <p><code>/health</code> queda libre para verificación de estado.</p>
+        </div>
+        <div class="panel highlight">
+          <h3>Validaciones</h3>
+          <ul class="check-list">
+            <li>Campos obligatorios no vacíos.</li>
+            <li><code>trim</code> antes de guardar.</li>
+            <li>Precio mayor o igual a 0.</li>
+            <li>URL válida <code>http</code> o <code>https</code>.</li>
+            <li>Bloqueo de <code>&lt;script&gt;</code>, <code>SELECT</code>, <code>DROP</code>, <code>INSERT</code>, <code>--</code>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="image-row">
+        <div class="image-slot">Captura: 401 sin API Key</div>
+        <div class="image-slot">Captura: 400 por validación</div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" data-title="Logs y Swagger">
+      <div class="slide-header"><span class="chapter">12</span><h2>Logs estructurados y Swagger</h2></div>
+      <div class="two-col balanced">
+        <div class="panel">
+          <h3>Logs estructurados</h3>
+          <pre><code>{
+  "level": "INFO",
+  "timestampISO": "2026-...",
+  "route": "/platos-tipicos",
+  "action": "CREATE",
+  "platoId": 1,
+  "message": "Plato creado"
+}</code></pre>
+          <p>Permiten diagnosticar operaciones exitosas, validaciones fallidas, API Key inválida y errores no controlados.</p>
+        </div>
+        <div class="panel">
+          <h3>Swagger / OpenAPI</h3>
+          <ul class="check-list">
+            <li>Disponible en <code>/api/docs</code>.</li>
+            <li>Documenta CRUD y <code>/stats</code>.</li>
+            <li>Incluye DTOs y errores 400, 401, 404.</li>
+            <li>Documenta cabecera <code>X-FIS-EPN-KEY</code>.</li>
+          </ul>
+          <div class="image-slot">Captura sugerida: Swagger abierto en navegador</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" data-title="GitHub Actions">
+      <div class="slide-header"><span class="chapter">13</span><h2>GitHub Actions: checks automáticos</h2></div>
+      <p class="lead">El workflow valida el proyecto al hacer <code>push</code> o <code>pull_request</code>, reduciendo el riesgo de subir cambios rotos.</p>
+      <div class="pipeline">
+        <div><span>1</span><strong>npm ci</strong><small>Instala dependencias backend</small></div>
+        <div><span>2</span><strong>npm run lint</strong><small>Revisa calidad del código</small></div>
+        <div><span>3</span><strong>npm test</strong><small>Ejecuta pruebas unitarias</small></div>
+        <div><span>4</span><strong>npm run build</strong><small>Compila backend</small></div>
+        <div><span>5</span><strong>frontend npm ci</strong><small>Instala dependencias frontend</small></div>
+        <div><span>6</span><strong>frontend build</strong><small>Compila interfaz Vite</small></div>
+      </div>
+      <table class="neon-table small-table">
+        <thead><tr><th>Check</th><th>Qué evita</th><th>Estado esperado</th></tr></thead>
+        <tbody>
+          <tr><td>Lint</td><td>Errores de estilo o malas prácticas</td><td><span class="status ok">GREEN</span></td></tr>
+          <tr><td>Unit tests</td><td>Regresiones básicas</td><td><span class="status ok">GREEN</span></td></tr>
+          <tr><td>Build backend</td><td>Errores TypeScript / NestJS</td><td><span class="status ok">GREEN</span></td></tr>
+          <tr><td>Build frontend</td><td>Errores Vite / JS</td><td><span class="status ok">GREEN</span></td></tr>
+        </tbody>
+      </table>
+      <div class="image-slot wide">Espacio para captura: GitHub Actions ejecutado correctamente</div>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" data-title="Frontend">
+      <div class="slide-header"><span class="chapter">14</span><h2>Frontend Vite para demostración</h2></div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Funciones visuales</h3>
+          <ul class="check-list">
+            <li>Listar platos en tarjetas.</li>
+            <li>Mostrar imagen, nombre, región, ingredientes, precio y categoría.</li>
+            <li>Crear, editar, ver detalle y eliminar.</li>
+            <li>Mostrar estadísticas desde <code>/platos-tipicos/stats</code>.</li>
+            <li>Enviar <code>X-FIS-EPN-KEY</code> en cada petición.</li>
+            <li>Manejar errores cuando el backend no responde.</li>
+          </ul>
+        </div>
+        <div class="mock-browser">
+          <div class="browser-bar"><span></span><span></span><span></span></div>
+          <div class="image-slot large">Captura sugerida: frontend con tarjetas y formulario</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" data-title="Demo sugerida">
+      <div class="slide-header"><span class="chapter">15</span><h2>Guion de demostración en vivo</h2></div>
+      <div class="demo-steps">
+        <div><span>01</span><p>Iniciar backend con API Key: <code>$env:FIS_EPN_API_KEY="clave-de-prueba"; npm run start:dev</code></p></div>
+        <div><span>02</span><p>Abrir Swagger en <code>http://localhost:3000/api/docs</code> y mostrar endpoints documentados.</p></div>
+        <div><span>03</span><p>Iniciar frontend con <code>cd frontend && npm run dev</code>.</p></div>
+        <div><span>04</span><p>Crear un plato típico y verificar que aparece en tarjetas.</p></div>
+        <div><span>05</span><p>Editar, consultar detalle, eliminar y confirmar errores controlados.</p></div>
+        <div><span>06</span><p>Mostrar estadísticas, logs en consola y ejecución de pruebas.</p></div>
+      </div>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" data-title="Checklist final">
+      <div class="slide-header"><span class="chapter">16</span><h2>Checklist final de cumplimiento</h2></div>
+      <div class="check-grid">
+        <label><input type="checkbox" checked /> CRUD persistente en SQLite</label>
+        <label><input type="checkbox" checked /> Diagnóstico de deuda técnica</label>
+        <label><input type="checkbox" checked /> Correctivo documentado</label>
+        <label><input type="checkbox" checked /> Adaptativo con metadata</label>
+        <label><input type="checkbox" checked /> Perfectivo con stats + frontend</label>
+        <label><input type="checkbox" checked /> Preventivo con validaciones y seguridad</label>
+        <label><input type="checkbox" checked /> Pruebas e2e y unitarias</label>
+        <label><input type="checkbox" checked /> Swagger / OpenAPI</label>
+        <label><input type="checkbox" checked /> Logs estructurados</label>
+        <label><input type="checkbox" checked /> GitHub Actions</label>
+        <label><input type="checkbox" checked /> Pruebas manuales reproducibles</label>
+        <label><input type="checkbox" checked /> Documentación final</label>
+      </div>
+      <div class="image-slot wide">Espacio para captura final: terminal con todos los comandos en GREEN</div>
+    </section>
+
+    <!-- 18 -->
+    <section class="slide closing" data-title="Preguntas">
+      <div class="eyebrow">FIS · Construcción de Software</div>
+      <h2 class="neon-title">¿Preguntas?</h2>
+      <p class="subtitle">“La calidad de un sistema no se mide solo por su estado inicial, sino por la facilidad con la que puede adaptarse y mantenerse.”</p>
+      <div class="closing-grid">
+        <div class="glass-card"><strong>CRUD</strong><span>Persistente</span></div>
+        <div class="glass-card"><strong>Mantenimiento</strong><span>4 tipos</span></div>
+        <div class="glass-card"><strong>Calidad</strong><span>Pruebas + CI</span></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="controls" aria-label="Controles de presentación">
+    <button id="prevBtn" title="Anterior">‹</button>
+    <span id="counter">1 / 18</span>
+    <button id="nextBtn" title="Siguiente">›</button>
+    <button id="overviewBtn" title="Vista general">☷</button>
+    <button id="printBtn" title="Imprimir / guardar PDF">PDF</button>
+  </aside>
+  <div class="progress"><span id="progressBar"></span></div>
+
+  <script src="script.js"></script>
 </body>
 </html>

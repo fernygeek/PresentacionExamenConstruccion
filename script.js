@@ -1,58 +1,81 @@
-// Lógica de navegación de diapositivas académicas
-document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const progressText = document.getElementById('slide-progress');
-    
-    let currentSlideIndex = 0;
-    const totalSlides = slides.length;
+const slides = Array.from(document.querySelectorAll('.slide'));
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+const counter = document.getElementById('counter');
+const progressBar = document.getElementById('progressBar');
+const overviewBtn = document.getElementById('overviewBtn');
+const printBtn = document.getElementById('printBtn');
+const deck = document.getElementById('deck');
 
-    function updatePresentation() {
-        // Actualizar visibilidad de las diapositivas
-        slides.forEach((slide, index) => {
-            if (index === currentSlideIndex) {
-                slide.classList.add('active');
-            } else {
-                slide.classList.remove('active');
-            }
-        });
+let current = 0;
+let overview = false;
 
-        // Actualizar estado de los botones
-        prevBtn.disabled = currentSlideIndex === 0;
-        nextBtn.disabled = currentSlideIndex === totalSlides - 1;
+function updateSlide(index) {
+  current = Math.max(0, Math.min(index, slides.length - 1));
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === current);
+    slide.setAttribute('aria-hidden', i !== current);
+  });
+  counter.textContent = `${current + 1} / ${slides.length}`;
+  progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+  window.location.hash = `slide-${current + 1}`;
+}
 
-        // Actualizar texto de progreso
-        progressText.textContent = `Diapositiva ${currentSlideIndex + 1} de ${totalSlides}`;
+function toggleOverview() {
+  overview = !overview;
+  deck.classList.toggle('overview', overview);
+  if (overview) {
+    slides.forEach(slide => slide.classList.add('active'));
+  } else {
+    updateSlide(current);
+  }
+}
+
+function goNext() {
+  if (overview) return toggleOverview();
+  updateSlide(current + 1);
+}
+
+function goPrev() {
+  if (overview) return toggleOverview();
+  updateSlide(current - 1);
+}
+
+nextBtn.addEventListener('click', goNext);
+prevBtn.addEventListener('click', goPrev);
+overviewBtn.addEventListener('click', toggleOverview);
+printBtn.addEventListener('click', () => window.print());
+
+slides.forEach((slide, i) => {
+  slide.addEventListener('click', () => {
+    if (overview) {
+      overview = false;
+      deck.classList.remove('overview');
+      updateSlide(i);
     }
-
-    function nextSlide() {
-        if (currentSlideIndex < totalSlides - 1) {
-            currentSlideIndex++;
-            updatePresentation();
-        }
-    }
-
-    function prevSlide() {
-        if (currentSlideIndex > 0) {
-            currentSlideIndex--;
-            updatePresentation();
-        }
-    }
-
-    // Eventos de los botones
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
-
-    // Eventos del teclado (Flechas de dirección)
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowRight') {
-            nextSlide();
-        } else if (event.key === 'ArrowLeft') {
-            prevSlide();
-        }
-    });
-
-    // Inicializar visualización
-    updatePresentation();
+  });
 });
+
+document.addEventListener('keydown', (event) => {
+  const key = event.key;
+  if (['ArrowRight', 'PageDown', ' '].includes(key)) {
+    event.preventDefault();
+    goNext();
+  }
+  if (['ArrowLeft', 'PageUp', 'Backspace'].includes(key)) {
+    event.preventDefault();
+    goPrev();
+  }
+  if (key.toLowerCase() === 'o') toggleOverview();
+  if (key === 'Home') updateSlide(0);
+  if (key === 'End') updateSlide(slides.length - 1);
+});
+
+function loadFromHash() {
+  const match = window.location.hash.match(/slide-(\d+)/);
+  if (match) updateSlide(Number(match[1]) - 1);
+  else updateSlide(0);
+}
+
+window.addEventListener('hashchange', loadFromHash);
+loadFromHash();

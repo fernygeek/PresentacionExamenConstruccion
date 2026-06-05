@@ -30,7 +30,6 @@
           <strong>TDD · Logs · Swagger · CI</strong>
         </div>
       </div>
-      <div class="image-slot wide">Espacio para captura: pantalla principal del frontend</div>
     </section>
 
     <!-- 02 -->
@@ -99,7 +98,7 @@
             <li>Base persistente: <code>db/platos-tipicos.sqlite</code>.</li>
             <li>Frontend en carpeta <code>frontend/</code>.</li>
           </ul>
-          <div class="image-slot">Espacio para diagrama de arquitectura del proyecto</div>
+          <div class="image-slot"><img src="imagen/diagramaDeArquitectura.png" alt="Diagrama de arquitectura del sistema" /></div>
         </div>
       </div>
     </section>
@@ -119,8 +118,8 @@
         </tbody>
       </table>
       <div class="image-row">
-        <div class="image-slot">Captura sugerida: Swagger endpoints</div>
-        <div class="image-slot">Captura sugerida: SQLite / persistencia</div>
+        <div class="image-slot"><img src="imagen/swaggerEndpoints.png" alt="Endpoints del CRUD documentados en Swagger" /></div>
+        <div class="image-slot"><img src="imagen/SQLitePersistencia.png" alt="Persistencia de platos típicos en SQLite" /></div>
       </div>
     </section>
 
@@ -177,7 +176,7 @@
         </div>
         <div class="chart-card">
           <h3>Espacio para dashboard real</h3>
-          <div class="image-slot">Captura sugerida: endpoint /platos-tipicos/stats o frontend de estadísticas</div>
+          <div class="image-slot"><img src="imagen/frontendEstadisticas.png" alt="Estadísticas mostradas en el frontend" /></div>
         </div>
       </div>
     </section>
@@ -227,7 +226,7 @@ npm run build</code></pre>
           <tr><td>Seguridad</td><td>API Key ausente, incorrecta y correcta.</td><td>401 o 200 según corresponda.</td></tr>
         </tbody>
       </table>
-      <div class="image-slot wide">Espacio para captura: terminal con npm run test:e2e en GREEN</div>
+      <div class="image-slot wide"><img src="imagen/teste2eGREEN.png" alt="Pruebas e2e ejecutadas correctamente" /></div>
     </section>
 
     <!-- 10 -->
@@ -251,7 +250,10 @@ npm run build</code></pre>
           <pre><code>curl http://localhost:3000/platos-tipicos \
   -H "X-FIS-EPN-KEY: clave-de-prueba"</code></pre>
           <p>La guía manual también cubre API Key incorrecta, datos inválidos, script malicioso y precio negativo.</p>
-          <div class="image-slot">Captura sugerida: ejecución curl + respuesta JSON</div>
+          <div class="image-slot image-stack">
+            <img src="imagen/ejecucionCurl.png" alt="Ejecución manual del comando curl" />
+            <img src="imagen/ejecucionCurlRespuestaJSON.png" alt="Respuesta JSON obtenida mediante curl" />
+          </div>
         </div>
       </div>
     </section>
@@ -284,7 +286,7 @@ npm run build</code></pre>
             <li>Agrega trazabilidad contextual por operación.</li>
             <li>Integra internamente con el módulo <code>events</code>.</li>
           </ul>
-          <div class="image-slot">Espacio para diagrama: CRUD → EventsService → metadata</div>
+          <div class="image-slot"><img src="imagen/diagramaCRUDEventsServiceMetadata.png" alt="Diagrama de integración entre CRUD, EventsService y metadata" /></div>
         </div>
       </div>
     </section>
@@ -311,8 +313,8 @@ npm run build</code></pre>
         </div>
       </div>
       <div class="image-row">
-        <div class="image-slot">Captura: 401 sin API Key</div>
-        <div class="image-slot">Captura: 400 por validación</div>
+        <div class="image-slot"><img src="imagen/401sinAPIKey.png" alt="Respuesta 401 al realizar una petición sin API Key" /></div>
+        <div class="image-slot"><img src="imagen/400PorValidacion.png" alt="Respuesta 400 producida por una validación" /></div>
       </div>
     </section>
 
@@ -340,7 +342,7 @@ npm run build</code></pre>
             <li>Incluye DTOs y errores 400, 401, 404.</li>
             <li>Documenta cabecera <code>X-FIS-EPN-KEY</code>.</li>
           </ul>
-          <div class="image-slot">Captura sugerida: Swagger abierto en navegador</div>
+          <div class="image-slot"><img src="imagen/swaggerEnNavegador.png" alt="Documentación Swagger abierta en el navegador" /></div>
         </div>
       </div>
     </section>
@@ -386,7 +388,7 @@ npm run build</code></pre>
         </div>
         <div class="mock-browser">
           <div class="browser-bar"><span></span><span></span><span></span></div>
-          <div class="image-slot large">Captura sugerida: frontend con tarjetas y formulario</div>
+          <div class="image-slot large"><img src="imagen/FrontEnd.png" alt="Frontend Vite con tarjetas de platos típicos" /></div>
         </div>
       </div>
     </section>
@@ -421,7 +423,7 @@ npm run build</code></pre>
         <label><input type="checkbox" checked /> Pruebas manuales reproducibles</label>
         <label><input type="checkbox" checked /> Documentación final</label>
       </div>
-      <div class="image-slot wide">Espacio para captura final: terminal con todos los comandos en GREEN</div>
+      <div class="image-slot wide"><img src="imagen/teste2eGREEN.png" alt="Resultado final de pruebas e2e en estado GREEN" /></div>
     </section>
 
     <!-- 18 -->
@@ -445,6 +447,10 @@ npm run build</code></pre>
     <button id="printBtn" title="Imprimir / guardar PDF">PDF</button>
   </aside>
   <div class="progress"><span id="progressBar"></span></div>
+
+  <div class="image-viewer" id="imageViewer" aria-hidden="true">
+    <img id="expandedImage" src="" alt="" title="Haz clic para volver a la diapositiva" />
+  </div>
 
   <script src="script.js"></script>
 </body>

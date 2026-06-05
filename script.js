@@ -6,9 +6,33 @@ const progressBar = document.getElementById('progressBar');
 const overviewBtn = document.getElementById('overviewBtn');
 const printBtn = document.getElementById('printBtn');
 const deck = document.getElementById('deck');
+const imageViewer = document.getElementById('imageViewer');
+const expandedImage = document.getElementById('expandedImage');
 
 let current = 0;
 let overview = false;
+let imageViewerOpen = false;
+
+function openImageViewer(image) {
+  expandedImage.src = image.src;
+  expandedImage.alt = image.alt;
+  imageViewer.classList.add('open');
+  imageViewer.setAttribute('aria-hidden', 'false');
+  imageViewerOpen = true;
+}
+
+function closeImageViewer() {
+  imageViewer.classList.remove('open');
+  imageViewer.setAttribute('aria-hidden', 'true');
+  imageViewerOpen = false;
+
+  window.setTimeout(() => {
+    if (!imageViewerOpen) {
+      expandedImage.src = '';
+      expandedImage.alt = '';
+    }
+  }, 220);
+}
 
 function updateSlide(index) {
   current = Math.max(0, Math.min(index, slides.length - 1));
@@ -45,6 +69,18 @@ nextBtn.addEventListener('click', goNext);
 prevBtn.addEventListener('click', goPrev);
 overviewBtn.addEventListener('click', toggleOverview);
 printBtn.addEventListener('click', () => window.print());
+imageViewer.addEventListener('click', closeImageViewer);
+expandedImage.addEventListener('click', event => {
+  event.stopPropagation();
+  closeImageViewer();
+});
+
+document.querySelectorAll('.image-slot img').forEach(image => {
+  image.addEventListener('click', event => {
+    event.stopPropagation();
+    openImageViewer(image);
+  });
+});
 
 slides.forEach((slide, i) => {
   slide.addEventListener('click', () => {
@@ -58,6 +94,10 @@ slides.forEach((slide, i) => {
 
 document.addEventListener('keydown', (event) => {
   const key = event.key;
+  if (imageViewerOpen) {
+    if (key === 'Escape') closeImageViewer();
+    return;
+  }
   if (['ArrowRight', 'PageDown', ' '].includes(key)) {
     event.preventDefault();
     goNext();
